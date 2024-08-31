@@ -33,5 +33,4 @@ jobs:
 
     - name: Run Spell Checker
       run: |
-        source venv/bin/activate
         python spellcheckerTest.py $FILES
