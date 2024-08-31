@@ -27,8 +27,9 @@ jobs:
         echo "FILES=$(git diff --name-only origin/main HEAD -- '*.py')" >> $GITHUB_ENV
         echo "Changed files: $FILES"
 
-    - name: Debugging: Print files to be checked
-      run: echo "Files to be checked: $FILES"
+    - name: Print files to be checked
+      run: | 
+        echo "Files to be checked: $FILES"
 
     - name: Run Spell Checker
       run: |
