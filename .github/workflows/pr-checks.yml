@@ -12,10 +12,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install Python and dependencies
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'  # Specify the Python version you are using
+
+    - name: Install dependencies
       run: |
         pip install pyspellchecker
 
+    - name: Identify changed Python files
+      id: changed-files
+      run: |
+        echo "FILES=$(git diff --name-only origin/main HEAD -- '*.py')" >> $GITHUB_ENV
+        echo "Changed files: $FILES"
+
+    - name: Debugging: Print files to be checked
+      run: echo "Files to be checked: $FILES"
+
     - name: Run Spell Checker
       run: |
-        python spellcheckerTest.py $(git diff --name-only origin/main HEAD | grep '.py$')
+        source venv/bin/activate
+        python spellcheckerTest.py $FILES
