@@ -1,0 +1,23 @@
+name: Spell Checker
+
+on:
+  pull_request:
+    paths:
+      - '**/*.py'
+
+jobs:
+  spell-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Python and dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install pyspellchecker
+
+    - name: Run Spell Checker
+      run: |
+        python spellcheckerTest.py $(git diff --name-only origin/main HEAD | grep '.py$')
