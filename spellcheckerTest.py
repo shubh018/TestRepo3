@@ -45,6 +45,7 @@ def check_files_in_pr(file_paths):
 if __name__ == "__main__":
     # List of files changed in the PR
     pr_files = sys.argv[1:]
+    print(pr_files)
 
     # Run spell check on PR files
     misspelled_words = check_files_in_pr(pr_files)
