@@ -28,13 +28,13 @@ jobs:
     - name: Identify changed Python files
       id: changed-files
       run: |
-        # Get base branch name
         BASE_BRANCH=${{ github.event.pull_request.base.ref }}
+        PR_BRANCH=${{ github.head_ref }}
         
         # Checkout the base branch and PR branch
         git checkout $BASE_BRANCH
         git pull origin $BASE_BRANCH
-        git checkout ${{ github.head_ref }}
+        git checkout $PR_BRANCH
         
         # List changed Python files
         FILES=$(git diff --name-only $BASE_BRANCH HEAD -- '*.py')
