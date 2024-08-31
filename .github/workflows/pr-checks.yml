@@ -14,8 +14,6 @@ jobs:
 
     - name: Install Python and dependencies
       run: |
-        python -m venv venv
-        source venv/bin/activate
         pip install pyspellchecker
 
     - name: Run Spell Checker
