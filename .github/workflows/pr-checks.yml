@@ -21,10 +21,23 @@ jobs:
       run: |
         pip install pyspellchecker
 
+    - name: Fetch base branch
+      run: |
+        git fetch origin ${{ github.event.pull_request.base.ref }}
+
     - name: Identify changed Python files
       id: changed-files
       run: |
-        FILES=$(git diff --name-only HEAD^...HEAD)
+        # Get base branch name
+        BASE_BRANCH=${{ github.event.pull_request.base.ref }}
+        
+        # Checkout the base branch and PR branch
+        git checkout $BASE_BRANCH
+        git pull origin $BASE_BRANCH
+        git checkout ${{ github.head_ref }}
+        
+        # List changed Python files
+        FILES=$(git diff --name-only $BASE_BRANCH HEAD -- '*.py')
         echo "Files detected: $FILES"
         echo "FILES=$FILES" >> $GITHUB_ENV
 
