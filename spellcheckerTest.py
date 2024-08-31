@@ -1,38 +1,20 @@
 import re
-import keyword
-import builtins
 from spellchecker import SpellChecker
-import os
 import sys
 
 # Initialize the spell checker
 spell = SpellChecker()
 
-# List of inbuilt functions and Python keywords to ignore
-inbuilt_functions = dir(builtins)
-python_keywords = keyword.kwlist
-
 # Regular expressions to match variable names and strings
-variable_pattern = re.compile(r'\b[A-Za-z_][A-Za-z0-9_]*\b')
 string_pattern = re.compile(r'(["\'])(?:(?=(\\?))\2.)*?\1')
 
 
-def is_valid_token(token):
-    """Check if the token is a valid word that should be spell-checked."""
-    return (
-            token.isalpha() and  # Check if the token is alphabetic
-            token not in python_keywords and  # Ignore Python keywords
-            token not in inbuilt_functions and  # Ignore inbuilt functions
-            not variable_pattern.fullmatch(token)  # Ignore variable names
-    )
-
-
 def extract_tokens_from_code(code):
-    """Extracts tokens to be checked from the code, ignoring strings and variables."""
+    """Extract all tokens that should be spell-checked, excluding strings."""
     # Remove strings from the code
     code_without_strings = re.sub(string_pattern, '', code)
 
-    # Extract all words from the remaining code
+    # Extract all words that are not Python keywords or built-in functions
     tokens = re.findall(r'\b[A-Za-z_][A-Za-z0-9_]*\b', code_without_strings)
     return tokens
 
@@ -40,7 +22,7 @@ def extract_tokens_from_code(code):
 def check_spelling_in_code(code):
     """Check for spelling mistakes in the code."""
     tokens = extract_tokens_from_code(code)
-    misspelled = spell.unknown([token for token in tokens if is_valid_token(token)])
+    misspelled = spell.unknown(tokens)
 
     return misspelled
 
