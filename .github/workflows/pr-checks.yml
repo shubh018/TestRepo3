@@ -24,7 +24,7 @@ jobs:
     - name: Identify changed Python files
       id: changed-files
       run: |
-        echo "FILES=$(git diff --name-only origin/main HEAD -- '*.py')" >> $GITHUB_ENV
+        run FILES=$(git diff --name-only -r HEAD^1 HEAD | xargs)
         echo "Changed files: $FILES"
 
     - name: Print files to be checked
@@ -33,4 +33,4 @@ jobs:
 
     - name: Run Spell Checker
       run: |
-        python pr_spell_checker.py $FILES
+        python spellcheckerTest.py $FILES
