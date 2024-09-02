@@ -37,7 +37,7 @@ jobs:
         git checkout $PR_BRANCH
         
         # List changed Python files
-        FILES=$(git diff --name-only $BASE_BRANCH HEAD -- '*.py')
+        FILES=(git diff --name-only $BASE_BRANCH HEAD)
         echo "Files detected: $FILES"
         echo "FILES=$FILES" >> $GITHUB_ENV
 
