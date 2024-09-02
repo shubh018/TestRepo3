@@ -24,8 +24,8 @@ jobs:
     - name: Identify changed Python files
       id: changed-files
       run: |
-        run git diff --name-only -r HEAD^1 HEAD | xargs
+        run git diff --name-only origin/main HEAD 
 
     - name: Run Spell Checker
       run: |
-        python spellcheckerTest.py $FILES $(git diff --name-only -r HEAD^1 HEAD | xargs)
+        python spellcheckerTest.py $FILES $(git diff --name-only origin/main HEAD)
