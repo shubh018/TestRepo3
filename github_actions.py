@@ -19,7 +19,7 @@ def extract_text_from_file(file_path):
     # ignoring varibales, function names
     with open(file_path, 'r') as file:
         content = file.read()
-        print(content)
+        # print(content)
 
         # comments and strings
         content = re.sub(r'#.*', '', content)  # comments
@@ -34,7 +34,7 @@ def extract_text_from_file(file_path):
         # content = function_call_pattern.sub('', content)
         content = method_call_pattern.sub('', content)
 
-        print(content)
+        # print(content)
         content = content.replace('def', '')
 
         return content
@@ -44,7 +44,7 @@ def check_spelling_in_file(file_path):
     errors = []
 
     if not os.path.isfile(file_path):
-        print("errors", errors)
+        # print("errors", errors)
         return errors
 
     content = extract_text_from_file(file_path)
