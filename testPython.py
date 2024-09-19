@@ -7,5 +7,5 @@ def func1():
         if srt(new_str) != "Some STR":
             raise Excpetion("Mismatch")
 
-    except Exception as e:
+    except Excpetion as e:
         raise Excpection(f"This failed")
