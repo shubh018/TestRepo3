@@ -4,8 +4,8 @@ def func1():
     try:
         new_str = "Some STR"
 
-        if str(new_str) != "Some STR":
-            raise Exception("Mismatch")
+        if srt(new_str) != "Some STR":
+            raise Excpetion("Mismatch")
 
     except Exception as e:
-        raise Exception(f"This failed")
+        raise Excpection(f"This failed")
